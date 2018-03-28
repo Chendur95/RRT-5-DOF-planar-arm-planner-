@@ -1,0 +1,29 @@
+16-350 Planning Techniques for Robotics
+Homework 2 
+
+  Method of implementation 
+      I have implemented RRT-CONNECT algorithm in the given options and have used C++ language for the same. I defined a class for the RRT Tree, and am creating two objects 
+for start tree and the goal tree. I'm using concepts of <vector> for the vertices and <unordered_map> for the edges of the trees.  
+ 
+  Implementation specifics -
+
+1. The Ephsilon for my Extend function is 1.3 
+2. The random configuration angle keeps generating until a valid angle set is generated that satisfies the map environment that doesn't collide with obstacles. 
+   (Dynamic memory allocation for random angles)
+3. Using a boolean 'pathFound' to keep track if the path is found and to break accordingly. 
+4. A while loop runs for 50,000 times within the planner function to implement the RRT-CONNECT algorithm until path is found.  
+
+  After the RRT-CONNECT algorithm implementation, 
+  If the path is found,     (All the below steps are implemented inside the planner function)
+
+1. I found the path to follow now, using <unordered_map> edges that I have created which stores the parent index values. I have used this to function similar to a backpointer. 
+2. The indexes are inserted in a <vector> called 'path' simultaneously in a while loop until the end of index values. 
+3. Another similar while loop is used for the goal tree, the index values are 'push_back' into the path vector.
+4. Finally, I'm returning '*plan' after copying all vertices of the 'path' vector found to *plan. (Copying start tree vertices first to 'plan' and then the goal tree vertices) 
+   (Dynamic memory allocation for plan) 
+
+  Plan distance, Number of samples and Plan length is returned by the algorithm finally. Plan distance is calculated using 'dist_angles' function implemented. 
+
+  Performance testing
+Timer for the planner has been set before and after the planner function call. In map1, in a sample test run, the time taken to plan in each iteration was found to be less
+than a second or 2 seconds. The clock is returning integer value of time in seconds. 
